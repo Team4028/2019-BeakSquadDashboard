@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC 4028 Beak Squad Dashboard</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<!--<body onload="loadTestAutons(); loadTestAutonSides();">-->
+	<header>
+		<table>
+			<tr align="center">
+				<!-- Tells whether robot is connected to dashboard. -->
+				<th style="width:230px"><div id="robot-state">Unknown state</div></th>
+				<th style="width:230px"><label class="std-label">FMS Debug Msg</label></th>
+				<th style="width:490px"><label class="std-label">Robot Code Build</label></th>
+				<th style="width:230px"><label class="std-label">Scan Time (2 sec roll avg)</label></th>
+			</tr>
+			<tr align="center">
+				<td><button class="login-button" id="reconnectBtn">Connect</button></td>
+				<td><input type="text" id="fmsDebugMsg" value="unknown" readonly /></td>
+				<td><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>
+				<td><input type="text" id="robotScanTime" value="unknown" readonly /></td>
+			</tr>
+		</table>
+    </header>
+    <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work. -->
+	<img id="camera" src="#"/>
+	
+    <!-- The main body of the dashboard -->
+	<!-- Autonomous selector -->
+	<fieldset id="auton-groupbox">
+		<legend>Auton Selectors:</legend>
+		<table>
+			<colgroup> <!--Defining Dementions of Columns in Auton Selector Group Box-->
+				<col width="50px"/>
+				<col width="75px"/>
+				<col width="75px"/>
+			</colgroup>
+			<tr>
+				<td colspan="3" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
+			</tr>
+			<tr>
+				<td align="center"><label class="std-label">Selected <br/> Auton </label></td>
+				<td colspan="2" align="center"><input type="text" id="selectedAuton" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td align="center"><label class="std-label">Selected <br/> Side </label></td>
+				<td><input type="text" id="selectedSide" value="unknown" readonly /></td>
+			</tr>
+		</table>
+	</fieldset>	
+
+	<div id="autonChooserWindow" class="modal">
+		<button id="closeChooserWindowBtn">X</button>
+		<fieldset id="autonChooserBtnContainer" class="basic-auton-chooser-fieldset">
+			<legend>Select the Auton you want to run:</legend>
+		</fieldset>
+		<fieldset id="autonSideChooserBtnContainer" class="basic-auton-chooser-fieldset">
+			<legend>Select the Side that the Auton is Starting on:</legend>
+		</fieldset>
+	</div>
+	
+	<fieldset id="chassis-groupbox">
+		<legend>Chassis:</legend>
+		<table>
+			<tr>
+				<td><label class="std-label">Left Velocity Target / Act</label></td>
+				<td><label class="std-label">Right Velocity Target / Act</label></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="leftChassisWheelTargetVel" value="unknown" readonly /></td>
+				<td><input type="text" id="rightChassisWheelTargetVel" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="leftChassisWheelActualVel" value="unknown" readonly /></td>
+				<td><input type="text" id="rightChassisWheelActualVel" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Pose</label></td><td><input type="text" id="robotPose" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Angle</label></td><td><input type="text" id="chassisAngle" value="unknown" readonly /></td>
+			</tr>
+			<!--<tr><td><label class="std-label">Remaining Path Length</label></td><td><input type="text" id="chassisRemainingPathLength" value="unknown" readonly /></td></tr>-->
+		</table>
+	</fieldset>		
+	
+	<div id="robot-diagram-div">
+		<!-- Robot diagram, arms moves when encoder values change -->
+		<!-- Elevator diagram, shows current position on elevator-->
+        <svg id="robot-diagram" width="332" height="450">
+            <!-- Robot Diagram -->
+			<rect x="115" y="320" width="15" height="100" /> <!--Chassis Left Side-->
+			<rect x="185" y="320" width="15" height="100" /> <!--Chassis Right Side-->
+			<rect x="115" y="405" width="85" height="15"/> <!--Chassis Back Side-->
+			<rect id="infeed-left-arm" x="70" y="325" width="50" height="7" style="transform-origin: center right" />
+			<rect id="infeed-right-arm" x="195" y="325" width="50" height="7" style="transform-origin: center left" />
+			<rect id="cube-gamepiece" x="140" y="325" width="35" height="35" />
+				<!--Carriage Diagram-->
+				<rect x="133" y="322" width="6" height="45"/> <!--Carriage Fixed Side (Left)-->
+				<rect id="carriage-squeeze-side" x="176" y="322" width="6" height="45"/> 
+				<rect id="carriage-back-side" x="133" y="362" width="49" height="9"/>
+				<!--Elevator on Robot Diagram-->
+				<rect x="127" y="375" width="5" height="40" style="transform: rotate(20deg)"/> <!--Elevator Right Support-->
+				<rect x="183" y="375" width="5" height="40" style="transform: rotate(-20deg)"/> <!--Elevator Left Support-->
+				<rect x="130" y="372" width="55" height="12"/> <!--Elevator Top-Down view-->
+			<!--Elevator Diagram-->
+			<rect id="elevator-moving-stage" x="293" y="325" width="10" height="90"/>
+			<rect x="290" y="325" width="15" height="90"/> <!--Elevator Fixed Stage-->
+			<rect x="280" y="335" width="5" height="85" style="transform: rotate(20deg)"/> <!--Elevator Support Beam-->
+			<rect x="265" y="415" width="50" height="5"/><!--Chassis Side View-->
+			<rect id="elevator-cube" x="310" y="405" width="15" height="15" style="transform-origin: top left"/>
+			<rect id="carriage" x="305" y="410" width="23" height="5" style="transform-origin: top left"/>
+			<rect id="carriage-motor" x="307" y="403" width="3" height="7" style="transform-origin: bottom left"/>
+        </svg>
+	</div>
+	
+	<fieldset id="elevator-groupbox">
+		<legend>Elevator:</legend>
+		<table>
+			<tr>
+				<td><label class="std-label">Height (in)</label></td><td><input type="text" id="elevatorHeightInches" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Height (NU)</label></td><td><input type="text" id="elevatorHeightNU" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">State</label></td><td><input type="text" id="elevatorState" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="climberServerOpen" value="Is Servo Open?" disabled /></td><td><input type="text" id="elevatorInPosition" value="Elevator In Position?" disabled /></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset id="carriage-groupbox">
+		<legend>Carriage:</legend>
+		<table>
+			<tr>
+				<td><label class="std-label">Infeed %VBus</label></td><td><input type="text" id="carriageInfeedPercentVBus" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Outfeed %VBus</label></td><td><input type="text" id="carriageOutfeedPercentVBus" value="unknown" readonly /></td> 
+			</tr>
+			<tr>
+				<td><label class="std-label">State</label></td><td><input type="text" id="carriageState" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="carriageSqueezed" value="Is Carriage Squeezed?" disabled /></td>
+				<td><input type="text" id="cubeInCarriage" value="Is Cube in Carriage?" disabled /></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset id="infeed-groupbox">
+		<legend>Infeed:</legend>
+		<table>
+			<tr>
+				<td><label class="std-label"><label>Wheels:%VBus</label></td>
+				<td><input type="text" id="infeedWheelsPercentVBus" value="% VBus unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Left Current Angle / NU</label></td>
+				<td><label class="std-label">Right Current Angle / NU</label></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="leftArmCurrentAngle" value="unknown" readonly /></td>
+				<td><input type="text" id="rightArmCurrentAngle" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="leftArmCurrentAngleNU" value="unknown" readonly /></td>
+				<td><input type="text" id="rightArmCurrentAngleNU" value="unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label">Arms:State</label></td>
+				<td><input type="text" id="infeedArmsState" value="Arm state unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="infeedArmsSafe" value="Arms:Safe?" readonly /></td>
+				<td><input type="text" id="infeedArmsInPosition" value="Arms:In Position?" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label"><label>Arms:TargetAngle</label></td>
+				<td><input type="text" id="infeedArmsTargetSqueezeAngle" value="Arm angle unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><label class="std-label"><label>Wheels:State</label></td>
+				<td><input type="text" id="infeedWheelsState" value="state unknown" readonly /></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="infeedArmsLeftHomed" value="Left Homed?" disabled /></td>
+				<td><input type="text" id="infeedArmsRightHomed" value="Right Homed?" disabled /></td>
+			</tr>
+		</table>
+	</fieldset>
+			
+    <div id="login">
+		<label>Connection <br/> Login:</label>
+		<button class="login-button" id="usbConnectBtn" disabled>==== USB Connect ==== <br/> [172.22.11.2]</button>
+		<button class="login-button" id="radioConnectBtn" disabled>==== Radio Connect ==== <br/> [10.40.28.2]</button>
+	</div>
+	
+    <script src="networktables/networktables.js"></script>
+    <script src="connection.js"></script>
+	<script src="ui.js"></script>
+	<script src="autonChooser.js"></script>
+</body>
+
+</html>
