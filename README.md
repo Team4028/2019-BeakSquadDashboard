@@ -1,4 +1,4 @@
-# 2019BeakSquadDashbaord
+# 2019 - BeakSquadDashboard
 Updated dashboard for DESTINATION: Deep Space that replaces the SmartDashboard
 
 [<img src="images/icon.png" align="right" width="150">](https://github.com/FRCDashboard/FRCDashboard)
