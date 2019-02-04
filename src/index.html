@@ -14,7 +14,7 @@
 
 <body>
 <!--<body onload="loadTestAutons(); loadTestAutonSides();">-->
-	<header>
+	<div class = "box">
 		<table>
 			<colgroup>
 				<col width="230px">
@@ -40,33 +40,31 @@
 				<!--<td colspan="2"><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>-->
 			<!--</tr>-->
 		</table>
-    </header>
+	</div>
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work. -->
 	<img id="camera" src="#"/>
 	
     <!-- The main body of the dashboard -->
 	<!-- Autonomous selector -->
-	<fieldset id="auton-groupbox">
-		<legend>Auton Selectors:</legend>
+	<div class = "box" id = "auton-groupbox" flex="grow">
 		<table>
 			<colgroup> <!--Defining Dementions of Columns in Auton Selector Group Box-->
 				<col width="50px"/>
-				<col width="75px"/>
-				<col width="75px"/>
+				<col width="150px"/>
 			</colgroup>
 			<tr>
-				<td colspan="3" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
+				<td colspan="2" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Auton </label></td>
-				<td colspan="2" align="center"><input type="text" id="selectedAuton" value="unknown" readonly /></td>
+				<td align="center"><input type="text" id="selectedAuton" value="unknown" readonly /></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Side </label></td>
 				<td><input type="text" id="selectedSide" value="unknown" readonly /></td>
 			</tr>
 		</table>
-	</fieldset>	
+	</div>
 
 	<div id="autonChooserWindow" class="modal">
 		<button id="closeChooserWindowBtn">X</button>

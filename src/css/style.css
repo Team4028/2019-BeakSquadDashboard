@@ -14,7 +14,7 @@ body {
     user-select: none;
     color: white;
     overflow: hidden;
-    background: #222;
+    background: #21323A;
 }
 
 button, input[type="text"], input[type="number"], .select-container, select {
@@ -25,6 +25,14 @@ button, input[type="text"], input[type="number"], .select-container, select {
     padding: 4px 4px;
     cursor: pointer;
     outline: 0;
+}
+
+.title{
+    font-size: 2em;
+    text-align: left;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .select-container {
@@ -50,7 +58,7 @@ body > * {
     padding: 10px;
     position: fixed;
     overflow: scroll;
-    background: #222;
+    background: #21323A;
 }
 #timer {
     font-family: monospace;
@@ -61,13 +69,6 @@ body > * {
     left: 0;
     font-size: 20vh;
     line-height: .8;
-}
-header {
-    /*width: 20vw;*/
-    height: 20vh;
-    top: 0;
-    left: 0;
-    color: white;
 }
 
 .cameraChangerBtn {
@@ -187,34 +188,6 @@ Configure Settings for Specific HTML Objects
 }
 
 /*Manage General Element Design*/
-#elevatorHeightInches {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#elevatorHeightNU {
-	font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#carriageInfeedPercentVBus {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#carriageOutfeedPercentVBus {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
 #camera {
     padding: 0;
     position: fixed;
@@ -234,12 +207,19 @@ Configure Settings for Specific HTML Objects
 }
 
 /* Groupboxes */
+.box{
+    background-color: #2B3A42;
+    margin: 5px;
+    border-radius: 0px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 #auton-groupbox {
     padding: 0;
     position: fixed;
-    top: 120px;
+    top: 70px;
     left: 10px;
-    width: 100px;
+    width: 220px;
     height: 120px;
   /*  display: block;
     margin: 1.0em auto;
@@ -249,7 +229,7 @@ Configure Settings for Specific HTML Objects
 #chassis-groupbox {
     padding: 0;
     position: fixed;
-    top: 240px;
+    top: 190px;
     left: 10px;
     width: 217px;
     height: 230px;
@@ -410,7 +390,7 @@ Configure Settings for Classes of HTML Objects
 
 .std-label {
     color: white;
-    background: #444;
+    /*background: #444;*/
     border: none;
     font-size: 12px;
     padding: 4px 4px;
