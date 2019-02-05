@@ -98,6 +98,11 @@ text {
     fill: white;
 }
 
+.auton-text-display {
+    overflow: hidden;
+    width: 130px;
+}
+
 aside {
     right: 0;
     top: 0;
@@ -214,32 +219,36 @@ Configure Settings for Specific HTML Objects
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+#header {
+    height: 70px;
+}
+
 #auton-groupbox {
     padding: 0;
     position: fixed;
-    top: 70px;
-    left: 10px;
+    top: 75px;
+    left: 0px;
     width: 220px;
-    height: 120px;
+    height: 130px;
   /*  display: block;
-    margin: 1.0em auto;
-    text-align: center;*/
+    margin: 1.0em auto;*/
+    text-align: center;
 }
 
 #chassis-groupbox {
     padding: 0;
     position: fixed;
-    top: 190px;
-    left: 10px;
-    width: 217px;
+    top: 210px;
+    left: 0px;
+    width: 220px;
     height: 230px;
 }
 
 #elevator-groupbox {
     padding: 0;
     position: fixed;
-    top: 120px;
-    left: 240px;
+    top: 75px;
+    left: 225px;
     width: 225px;
     height: 155px;
 }
@@ -247,8 +256,8 @@ Configure Settings for Specific HTML Objects
 #carriage-groupbox {
     padding: 0;
     position: fixed;
-    top: 275px;
-    left: 240px;
+    top: 235px;
+    left: 225px;
     width: 225px;
     height: 190px;
 }
@@ -390,7 +399,7 @@ Configure Settings for Classes of HTML Objects
 
 .std-label {
     color: white;
-    /*background: #444;*/
+    background: transparent;
     border: none;
     font-size: 12px;
     padding: 4px 4px;

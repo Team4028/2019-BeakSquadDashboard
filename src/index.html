@@ -14,7 +14,7 @@
 
 <body>
 <!--<body onload="loadTestAutons(); loadTestAutonSides();">-->
-	<div class = "box">
+	<div id = "header" class = "box">
 		<table>
 			<colgroup>
 				<col width="230px">
@@ -22,10 +22,10 @@
 			</colgroup>
 			<tr align="center">
 				<!-- Tells whether robot is connected to dashboard. -->
-				<th style="width:230px"><div id="robot-state">Unknown state</div></th>
+				<th style="width:230px; top: 0px" ><div id="robot-state">Unknown state</div></th>
 				<!--<th style="width:230px"><label class="std-label">FMS Debug Msg</label></th>-->
 				<!--<th style="width:230px"><label class="std-label">Scan Time (2 sec roll avg)</label></th>-->
-				<th style="width:100px"><label class="std-label">Robot Code Build</label></th>
+				<th style="width:100px"><label class="std-label">Robot Code Build:</label></th>
 			</tr>
 			<tr align="center">
 				<td><button class="login-button" id="reconnectBtn">Connect</button></td>
@@ -33,14 +33,9 @@
 				<!--<td><input type="text" id="robotScanTime" value="unknown" readonly /></td>-->
 				<td><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>
 			</tr>
-			<!--<tr align="center">-->
-				<!--<th colspan="2" style="width:490px"><label class="std-label">Robot Code Build</label></th>-->
-			<!--</tr>-->
-			<!--<tr align="center">-->
-				<!--<td colspan="2"><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>-->
-			<!--</tr>-->
 		</table>
 	</div>
+
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work. -->
 	<img id="camera" src="#"/>
 	
@@ -49,19 +44,22 @@
 	<div class = "box" id = "auton-groupbox" flex="grow">
 		<table>
 			<colgroup> <!--Defining Dementions of Columns in Auton Selector Group Box-->
-				<col width="50px"/>
+				<col width="70px"/>
 				<col width="150px"/>
 			</colgroup>
+			<tr>
+				<td colspan="2" align = "left"> <label>Auton Chooser:</label></td>
+			</tr>
 			<tr>
 				<td colspan="2" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Auton </label></td>
-				<td align="center"><input type="text" id="selectedAuton" value="unknown" readonly /></td>
+				<td align="center"><input class="auton-text-display" type="text" id="selectedAuton" value="unknown" readonly /></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Side </label></td>
-				<td><input type="text" id="selectedSide" value="unknown" readonly /></td>
+				<td><input class="auton-text-display"type="text" id="selectedSide" value="unknown" readonly /></td>
 			</tr>
 		</table>
 	</div>
@@ -76,11 +74,11 @@
 		</fieldset>
 	</div>
 	
-	<fieldset id="chassis-groupbox">
+	<div class="box" id="chassis-groupbox">
 		<legend>Chassis:</legend>
 		<table>
 		</table>
-	</fieldset>		
+	</div>		
 	
 	<!--<div id="robot-diagram-div">-->
 		<!-- Robot diagram, arms moves when encoder values change -->
@@ -99,26 +97,26 @@
 	<!--</div>-->
 	
 	
-	<fieldset id="elevator-groupbox">
+	<div class="box" id="elevator-groupbox">
 		<legend>Elevator:</legend>
 		<table>
 		</table>
-	</fieldset>
+	</div>
 	
-	<fieldset id="carriage-groupbox">
+	<div class="box" id="carriage-groupbox">
 		<legend>Carriage:</legend>
 		<table>
 		</table>
-	</fieldset>
+	</div>
 
-	<fieldset id="test-groupbox">
+	<div class="box" id="test-groupbox">
 		<legend>Test:</legend>
 		<table>
 		</table>
 		<div id = "myProgress">
 			<div id="myBar">10%</div>
 		</div>
-	</fieldset>
+	</div>
 			
     <div id="login">
 		<label>Connection <br/> Login:</label>
