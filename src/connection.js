@@ -38,7 +38,7 @@ function onRobotConnection(connected) {
   if (connected == false)	{
     robotState.style.backgroundColor = "red";
     usbConnectBtn.disabled = radioConnectBtn.disabled = reconnectBtn.disabled = false;
-    buttonConnect.textContent = "Connect";
+    reconnectBtn.textContent = "Connect";
 	}	else {
     robotState.style.backgroundColor = "green";
     reconnectBtn.disabled = true;

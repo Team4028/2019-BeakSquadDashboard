@@ -13,7 +13,6 @@
 </head>
 
 <body>
-<!--<body onload="loadTestAutons(); loadTestAutonSides();">-->
 	<div id = "header" class = "box">
 		<table>
 			<colgroup>
@@ -97,25 +96,25 @@
 	<!--</div>-->
 	
 	<div class="box" id="vision-groupbox">
-		<legend>Vision Data:</legend>
 		<table>
 			<colgroup>
-				<col width="87px"/>
-				<col width="87px"/>
-				<col width="87px"/>
+				<col width="99px"/>
+				<col width="81px"/>
+				<col width="81px"/>
 			</colgroup>
 			<tr>
-				<td align="center"><label class="std-label">Target</label></td>
+				<td><legend>Vision Data:</legend></td>
+				<td align="center" colspan="2"><div align="center" id="visionTargetIndicator">Target</div></td>
+			</tr>
+			<tr>
 				<td align="center"><label class="std-label">Distance </label></td>
-				<td align="center"><label class="std-label">Angle 1 </label></td>
+				<td align="center"><label class="std-label">Angle 1</label></td>
+				<td align="center"><label class="std-label">Angle 2</label></td>
 			</tr>
 			<tr>
-				<td align="center" valign="center"><div id="visionTargetIndicator" height="grow">Unknown State</div></td>
-				<td align="center" valign="center"><div id="visionDistanceIndicator" height="grow">Unknown State</div></td>
-				<td align="center"><div id="visionAngleIndicator" height="47.5%">Unknown State</div></td>
-			</tr>
-			<tr>
-
+				<td align="center" valign="center"><div class="vision-indicator" id="visionDistanceIndicator"><span style="height:81px; display:table-cell; vertical-align:middle">##in</span></div></td>
+				<td align="center" valign="center"><div class="vision-indicator" id="visionAngle1Indicator"><span style="height:81px; display:table-cell; vertical-align:middle">##&#176</span></div></td>
+				<td align="center" valign="center"><div class="vision-indicator" id="visionAngle2Indicator"><span style="height:81px; display:table-cell; vertical-align:middle">##&#176</span></div></td>
 			</tr>
 		</table>
 	</div>

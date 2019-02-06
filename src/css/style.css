@@ -150,6 +150,21 @@ Configure Settings for Specific HTML Objects
     border-radius: 4px;
 }
 
+#visionTargetIndicator {
+    border-radius: 4px;
+    background-color: red;
+    height: grow;
+    width: grow;
+}
+
+.vision-indicator {
+    width: 95%;
+    height: 81px;
+    background-color: red;
+    border-radius: 4px;
+    align-items: center;
+}
+
 #robotCodeBuild {
     width: 200px;	
     overflow: auto;
@@ -294,7 +309,7 @@ Configure Settings for Specific HTML Objects
     color: white; 
 }
 #myProgress {
-    width: 100%;
+    width: 90%;
     background-color: #ddd;
 }
 
