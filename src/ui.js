@@ -18,11 +18,14 @@ let ui = {
 	visionTargetIndicator: document.getElementById('visionTargetIndicator'),
 	visionAngle1Indicator: document.getElementById('visionAngle1Indicator'),
 	visionAngle2Indicator: document.getElementById('visionAngle2Indicator'),
-	visionDistanceIndicator: document.getElementById('visionDistanceIndicator')
+	visionDistanceIndicator: document.getElementById('visionDistanceIndicator'),
 		
 	// elevator
 	
 	// carriage
+
+	// camera
+	camera: document.getElementById('camera')
 };
 
 // Key Listeners
@@ -61,6 +64,16 @@ NetworkTables.addKeyListener('/SmartDashboard/Auton/options', (key, value) => {
 	selectedAuton.value = "** Not selected **"
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/Auton/default', (key, value) => {
+	setAutonDefault(value.toString());
+	selectedAuton.value = value;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Auton/selected', (key, value) => {
+	setAutonDefault(value.toString());
+	selectedAuton.value = value;
+});
+
 // ========================================================================================
 // auton starting side
 // ========================================================================================
@@ -68,9 +81,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) 
 //function loadTestAutonSides() {
 	openChooserWindowBtn.disabled = false;
 	openChooserWindowBtn.textContent = '= Click to Open Chooser Window =';
-	
-    // load list of available auton side options
-	//availableSides = ["LEFT", "RIGHT"];
 
 	clearAutonSideButtons();
 
@@ -83,6 +93,11 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) 
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) => {
+	setSideDefault(value.toString());
+	selectedSide.value = value;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Side Start/selected', (key, value) => {
 	setSideDefault(value.toString());
 	selectedSide.value = value;
 });
@@ -155,10 +170,8 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 // ========================================================================================
 // misc 
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
-	if(value == true){
-
-	}
+NetworkTables.addKeyListener('/SmartDashboard/CurrentCameraAddress', (key, value) => {	
+	camera.setAttribute('src', value);
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Nuts', (key, value) => {
