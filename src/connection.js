@@ -7,6 +7,7 @@ let usbConnectBtn = document.getElementById('usbConnectBtn'),
 let loginShown = true;
 var address = 'Not Connected';
 var radioRequest = new XMLHttpRequest();
+//var limelightRequest
 var usbRequest = new XMLHttpRequest();
 
 // Set function to be called on NetworkTables connect. Not implemented.
