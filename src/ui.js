@@ -11,12 +11,21 @@ let ui = {
 	
 	// infeed arm diagram
 	robotDiagram: {
-		robot: document.getElementById('robot')
+		robot: document.getElementById('robot'),
 	},
+
+	//vision
+	visionTargetIndicator: document.getElementById('visionTargetIndicator'),
+	visionAngle1Indicator: document.getElementById('visionAngle1Indicator'),
+	visionAngle2Indicator: document.getElementById('visionAngle2Indicator'),
+	visionDistanceIndicator: document.getElementById('visionDistanceIndicator'),
 		
 	// elevator
 	
 	// carriage
+
+	// camera
+	camera: document.getElementById('camera')
 };
 
 // Key Listeners
@@ -34,20 +43,17 @@ NetworkTables.addKeyListener('/SmartDashboard/Robot Build', (key, value) => {
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Scan Time (2 sec roll avg)', (key, value) => {
-    ui.robotScanTime.value = value;
+    //ui.robotScanTime.value = value;
 });
 // ========================================================================================
 // auton mode
 // ========================================================================================
 // Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/AUTON MODE: /options', (key, value) => {
+NetworkTables.addKeyListener('/SmartDashboard/Auton/options', (key, value) => {
 //function loadTestAutons() {
 	openChooserWindowBtn.disabled = false;
 	openChooserWindowBtn.textContent = '= Click to Open Chooser Window =';
 	
-    // load list of available auton options
-	//availableAutons = ["DoNothing", "Auton1", "Auton2", "Auton3", "Auton4", "Auton5", "Auton6"];
-
 	clearAutonButtons();
 
     // dynamically build list of auton options
@@ -58,16 +64,23 @@ NetworkTables.addKeyListener('/SmartDashboard/AUTON MODE: /options', (key, value
 	selectedAuton.value = "** Not selected **"
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/Auton/default', (key, value) => {
+	setAutonDefault(value.toString());
+	selectedAuton.value = value;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Auton/selected', (key, value) => {
+	setAutonDefault(value.toString());
+	selectedAuton.value = value;
+});
+
 // ========================================================================================
 // auton starting side
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/AUTON STARTING SIDE: /options', (key, value) => {
+NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) => {
 //function loadTestAutonSides() {
 	openChooserWindowBtn.disabled = false;
 	openChooserWindowBtn.textContent = '= Click to Open Chooser Window =';
-	
-    // load list of available auton side options
-	//availableSides = ["LEFT", "RIGHT"];
 
 	clearAutonSideButtons();
 
@@ -79,7 +92,12 @@ NetworkTables.addKeyListener('/SmartDashboard/AUTON STARTING SIDE: /options', (k
 	selectedSide.value = "** Not selected **"
 });
 
-NetworkTables.addKeyListener('/SmartDashboard/AUTON STARTING SIDE: /default', (key, value) => {
+NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) => {
+	setSideDefault(value.toString());
+	selectedSide.value = value;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Side Start/selected', (key, value) => {
 	setSideDefault(value.toString());
 	selectedSide.value = value;
 });
@@ -87,17 +105,17 @@ NetworkTables.addKeyListener('/SmartDashboard/AUTON STARTING SIDE: /default', (k
 // ========================================================================================
 // Robot Vision Diagram
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/Angle1FromLL', (key, value) => {
-	ui.robotDiagram.robot.value = value;
+NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle1InDegrees', (key, value) => {
+	ui.visionAngle1Indicator.value = value;
 	
     // Calculate visual rotation of arm
-    var robotAngle1 = value;
+    //var robotAngle1 = value;
     // Rotate the arm in diagram to match real arm
-	ui.robotDiagram.robot.style.transform = `rotate(${robotAngle1}deg)`;
+	//ui.robotDiagram.robot.style.transform = `rotate(${robotAngle1}deg)`;
 });
 
-NetworkTables.addKeyListener('/SmartDashboard/Angle2', (key, value) => {	
-    // Calculate visual rotation of arm
+/*NetworkTables.addKeyListener('/SmartDashboard/Angle2', (key, value) => {	
+  /*  // Calculate visual rotation of arm
     var robotAngle2 = value*Math.PI/180;
 	// Rotate the arm in diagram to match real arm
 	var x = 240 - 
@@ -110,11 +128,36 @@ NetworkTables.addKeyListener('/SmartDashboard/Angle2', (key, value) => {
 
 	ui.robotDiagram.robot.setAttribute('x', x);
 	ui.robotDiagram.robot.setAttribute('y', y);
+});*/
+
+NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
+	ui.visionDistanceIndicator.value = value + "in";
+
+	if (value <= 48)	{
+		ui.visionDistanceIndicator.style = "background-color:green;";
+	} 
+	else if(value <= 120) {
+		ui.visionDistanceIndicator.style = "background-color:yellow;";
+	} else {
+		ui.visionDistanceIndicator.style = "background-color:red;";
+	}
+});
+
+// ========================================================================================
+// Vision
+// =======================================================================================
+NetworkTables.addKeyListener('/SmartDashboard/Vision:IsTargetInFOV', (key, value) => {
+    //ui.climberServerOpen.value = value;
+	
+	if (value)	{
+		ui.visionTargetIndicator.style = "background-color:green;";
+	} else {
+		ui.visionTargetIndicator.style = "background-color:red;";
+	}
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
 	var robotDistance = value;
-
 });
 // ========================================================================================
 // Chassis
@@ -127,10 +170,8 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 // ========================================================================================
 // misc 
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
-	if(value == true){
-
-	}
+NetworkTables.addKeyListener('/SmartDashboard/CurrentCameraAddress', (key, value) => {	
+	camera.setAttribute('src', value);
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Nuts', (key, value) => {

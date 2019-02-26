@@ -7,14 +7,13 @@
     <!--=====================================================-->
     <!-- Verion: | Date: | Description:                      -->
     <!-- 2019.0  | 1/6/19| Initial Commit of Dashboard       -->
-    <!--         |       |                                   -->
+    <!-- 2019.1  |       | Visual Redesign of Dashboard      -->
     <!--=====================================================-->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-<!--<body onload="loadTestAutons(); loadTestAutonSides();">-->
-	<header>
+	<div id = "header" class = "box">
 		<table>
 			<colgroup>
 				<col width="230px">
@@ -22,10 +21,10 @@
 			</colgroup>
 			<tr align="center">
 				<!-- Tells whether robot is connected to dashboard. -->
-				<th style="width:230px"><div id="robot-state">Unknown state</div></th>
+				<th style="width:230px" ><div id="robot-state">Unknown state</div></th>
 				<!--<th style="width:230px"><label class="std-label">FMS Debug Msg</label></th>-->
 				<!--<th style="width:230px"><label class="std-label">Scan Time (2 sec roll avg)</label></th>-->
-				<th style="width:100px"><label class="std-label">Robot Code Build</label></th>
+				<th style="width:100px"><label class="std-label">Robot Code Build:</label></th>
 			</tr>
 			<tr align="center">
 				<td><button class="login-button" id="reconnectBtn">Connect</button></td>
@@ -33,40 +32,36 @@
 				<!--<td><input type="text" id="robotScanTime" value="unknown" readonly /></td>-->
 				<td><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>
 			</tr>
-			<!--<tr align="center">-->
-				<!--<th colspan="2" style="width:490px"><label class="std-label">Robot Code Build</label></th>-->
-			<!--</tr>-->
-			<!--<tr align="center">-->
-				<!--<td colspan="2"><input type="text" id="robotCodeBuild" value="unknown" readonly /></td>-->
-			<!--</tr>-->
 		</table>
-    </header>
+	</div>
+
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work. -->
 	<img id="camera" src="#"/>
 	
     <!-- The main body of the dashboard -->
 	<!-- Autonomous selector -->
-	<fieldset id="auton-groupbox">
-		<legend>Auton Selectors:</legend>
+	<div class = "box" id = "auton-groupbox" flex="grow">
 		<table>
 			<colgroup> <!--Defining Dementions of Columns in Auton Selector Group Box-->
-				<col width="50px"/>
-				<col width="75px"/>
-				<col width="75px"/>
+				<col width="70px"/>
+				<col width="150px"/>
 			</colgroup>
 			<tr>
-				<td colspan="3" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
+				<td colspan="2" align = "left"> <label>Auton Chooser:</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><button id="openChooserWindowBtn" width="200px" disabled>No Autons Available</button></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Auton </label></td>
-				<td colspan="2" align="center"><input type="text" id="selectedAuton" value="unknown" readonly /></td>
+				<td align="center"><input class="auton-text-display" type="text" id="selectedAuton" value="unknown" readonly /></td>
 			</tr>
 			<tr>
 				<td align="center"><label class="std-label">Selected <br/> Side </label></td>
-				<td><input type="text" id="selectedSide" value="unknown" readonly /></td>
+				<td><input class="auton-text-display"type="text" id="selectedSide" value="unknown" readonly /></td>
 			</tr>
 		</table>
-	</fieldset>	
+	</div>
 
 	<div id="autonChooserWindow" class="modal">
 		<button id="closeChooserWindowBtn">X</button>
@@ -78,11 +73,11 @@
 		</fieldset>
 	</div>
 	
-	<fieldset id="chassis-groupbox">
+	<div class="box" id="chassis-groupbox">
 		<legend>Chassis:</legend>
 		<table>
 		</table>
-	</fieldset>		
+	</div>		
 	
 	<!--<div id="robot-diagram-div">-->
 		<!-- Robot diagram, arms moves when encoder values change -->
@@ -100,27 +95,50 @@
 		<!--</svg>-->
 	<!--</div>-->
 	
+	<div class="box" id="vision-groupbox">
+		<table>
+			<colgroup>
+				<col width="99px"/>
+				<col width="81px"/>
+				<col width="81px"/>
+			</colgroup>
+			<tr>
+				<td><legend>Vision Data:</legend></td>
+				<td align="center" colspan="2"><div align="center" id="visionTargetIndicator">Target</div></td>
+			</tr>
+			<tr>
+				<td align="center"><label class="std-label">Distance </label></td>
+				<td align="center"><label class="std-label">Angle 1</label></td>
+				<td align="center"><label class="std-label">Angle 2</label></td>
+			</tr>
+			<tr>
+				<td align="center" valign="center"><div class="vision-indicator" id="visionDistanceIndicator"><span style="height:81px; display:table-cell; vertical-align:middle">##in</span></div></td>
+				<td align="center" valign="center"><div class="vision-indicator" id="visionAngle1Indicator"><span style="height:81px; display:table-cell; vertical-align:middle">##&#176</span></div></td>
+				<td align="center" valign="center"><div class="vision-indicator" id="visionAngle2Indicator"><span style="height:81px; display:table-cell; vertical-align:middle">##&#176</span></div></td>
+			</tr>
+		</table>
+	</div>
 	
-	<fieldset id="elevator-groupbox">
+	<div class="box" id="elevator-groupbox">
 		<legend>Elevator:</legend>
 		<table>
 		</table>
-	</fieldset>
+	</div>
 	
-	<fieldset id="carriage-groupbox">
+	<div class="box" id="carriage-groupbox">
 		<legend>Carriage:</legend>
 		<table>
 		</table>
-	</fieldset>
+	</div>
 
-	<fieldset id="test-groupbox">
+	<div class="box" id="test-groupbox">
 		<legend>Test:</legend>
 		<table>
 		</table>
 		<div id = "myProgress">
 			<div id="myBar">10%</div>
 		</div>
-	</fieldset>
+	</div>
 			
     <div id="login">
 		<label>Connection <br/> Login:</label>
@@ -128,6 +146,8 @@
 		<button class="login-button" id="radioConnectBtn" disabled>==== Radio Connect ==== <br/> [10.40.28.2]</button>
 		<button class="login-button" id="developerScreenBtn" disabled>==== Open Developer ====<br/> Screen </button>
 	</div>
+
+	<!--<div id="developer-dashboard"></div>-->
 	
     <script src="networktables/networktables.js"></script>
     <script src="connection.js"></script>

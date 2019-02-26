@@ -1,11 +1,13 @@
-let usbConnect = document.getElementById('usbConnectBtn'),
-  radioConnect = document.getElementById('radioConnectBtn'),
-  buttonConnect = document.getElementById('reconnectBtn'),
+let usbConnectBtn = document.getElementById('usbConnectBtn'),
+  radioConnectBtn = document.getElementById('radioConnectBtn'),
+  reconnectBtn = document.getElementById('reconnectBtn'),
+  developerScreenBtn = document.getElementById('developerScreenBtn'),
   camera = document.getElementById('camera'),
   robotState = document.getElementById('robot-state');
 let loginShown = true;
 var address = 'Not Connected';
 var radioRequest = new XMLHttpRequest();
+//var limelightRequest
 var usbRequest = new XMLHttpRequest();
 
 // Set function to be called on NetworkTables connect. Not implemented.
@@ -36,15 +38,15 @@ function onRobotConnection(connected) {
   
   if (connected == false)	{
     robotState.style.backgroundColor = "red";
-    usbConnect.disabled = radioConnect.disabled = buttonConnect.disabled = false;
-    buttonConnect.textContent = "Connect";
+    usbConnectBtn.disabled = radioConnectBtn.disabled = reconnectBtn.disabled = false;
+    reconnectBtn.textContent = "Connect";
 	}	else {
     robotState.style.backgroundColor = "green";
-    buttonConnect.disabled = true;
-    buttonConnect.textContent = "Connected to " + address;
+    reconnectBtn.disabled = true;
+    reconnectBtn.textContent = "Connected to " + address;
 	}
   
-  buttonConnect.onclick = () => {
+  reconnectBtn.onclick = () => {
     document.body.classList.toggle('login', true);
     loginShown = true;
   };
@@ -58,26 +60,30 @@ function onRobotConnection(connected) {
 }
 function setLogin() {
   // Enable the USB and Radio Connection buttons
-  usbConnect.disabled = radioConnect.disabled = false;
+  usbConnectBtn.disabled = radioConnectBtn.disabled = false;
 }
 
 // On click try to connect and disable the input and the button
-usbConnect.onclick = () => {
+usbConnectBtn.onclick = () => {
   ipc.send('connect', '172.22.11.2');
   address = "172.22.11.2";
-  usbConnect.disabled = true;
+  usbConnectBtn.disabled = true;
   camera.setAttribute('src', 'http://172.22.11.2:1180/stream.mjpg');
-  usbConnect.textContent = 'Connecting...';
+  usbConnectBtn.textContent = 'Connecting...';
 };
-radioConnect.onclick = () => {
+radioConnectBtn.onclick = () => {
   ipc.send('connect', '10.40.28.2');
   address = "10.40.28.2";
-  radioConnect.disabled = true;
-  camera.setAttribute('src', 'http://10.40.28.11:5800/'); //Limelight
-  //camera.setAttribute('src', 'http://10.40.28.13:1181/stream.mjpg'); //Camera #1 w/ Rasberry PI
+  radioConnectBtn.disabled = true;
+  //camera.setAttribute('src', 'http://10.40.28.11:5800/'); //Limelight
+  camera.setAttribute('src', 'http://10.40.28.13:1181/stream.mjpg'); //Camera #1 w/ Rasberry PI
   //camera.setAttribute('src', 'http://10.40.28.13:1182/stream.mjpg'); //Camera #2 w/ Rasberry PI
-  radioConnect.textContent = 'Connecting...';
+  radioConnectBtn.textContent = 'Connecting...';
 };
+developerScreenBtn.onclick = () => {
+  //document.body.classList.toggle('developer-dashboard', true);
+  document.body.classList.toggle('login', false);
+}
 
 // Show login when starting
 document.body.classList.toggle('login', true);
@@ -86,7 +92,7 @@ setLogin();
 // Set Up grabbing Camera Frames
 usbRequest.open("GET", 'http://172.22.11.2:1180/stream.mjpg', true); // true for asynchronous 
 //radioRequest.open("GET", 'http://10.40.28.2:1180/stream.mjpg', true); // true for asynchronous 
-radioRequest.open("GET", 'http://10.40.28.11:5800/', false); // true for asynchronous 
+radioRequest.open("GET", 'http://10.40.28.13:1181/stream.mjpg', false); // true for asynchronous 
 usbRequest.send();
 usbRequest.send();
 radioRequest.send();

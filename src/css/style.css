@@ -14,7 +14,7 @@ body {
     user-select: none;
     color: white;
     overflow: hidden;
-    background: #222;
+    background:#21323A; /*rgb(47, 43, 66);*/
 }
 
 button, input[type="text"], input[type="number"], .select-container, select {
@@ -25,6 +25,14 @@ button, input[type="text"], input[type="number"], .select-container, select {
     padding: 4px 4px;
     cursor: pointer;
     outline: 0;
+}
+
+.title{
+    font-size: 2em;
+    text-align: left;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .select-container {
@@ -50,7 +58,7 @@ body > * {
     padding: 10px;
     position: fixed;
     overflow: scroll;
-    background: #222;
+    background: #21323A;
 }
 #timer {
     font-family: monospace;
@@ -61,13 +69,6 @@ body > * {
     left: 0;
     font-size: 20vh;
     line-height: .8;
-}
-header {
-    /*width: 20vw;*/
-    height: 20vh;
-    top: 0;
-    left: 0;
-    color: white;
 }
 
 .cameraChangerBtn {
@@ -95,6 +96,11 @@ text {
     letter-spacing: 2px;
     stroke: none;
     fill: white;
+}
+
+.auton-text-display {
+    overflow: hidden;
+    width: 130px;
 }
 
 aside {
@@ -144,9 +150,25 @@ Configure Settings for Specific HTML Objects
     border-radius: 4px;
 }
 
+#visionTargetIndicator {
+    border-radius: 4px;
+    background-color: red;
+    height: grow;
+    width: grow;
+}
+
+.vision-indicator {
+    width: 95%;
+    height: 81px;
+    background-color: red;
+    border-radius: 4px;
+    align-items: center;
+}
+
 #robotCodeBuild {
     width: 200px;	
     overflow: auto;
+    height: 30px;
 }
 
 /*Setup Auton Chooser */
@@ -187,89 +209,81 @@ Configure Settings for Specific HTML Objects
 }
 
 /*Manage General Element Design*/
-#elevatorHeightInches {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#elevatorHeightNU {
-	font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#carriageInfeedPercentVBus {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
-#carriageOutfeedPercentVBus {
-    font-size: 40px;
-	width: 150px;
-	text-align: right;
-	padding: 4px 4px;
-}
-
 #camera {
     padding: 0;
     position: fixed;
-    top: 10px;
-    left: 500px;
+    top: 5px;
+    left: 495px;
     /*width: 50vw;
     height: 90vh; */
-	width: 920px;
-    height: 720px;
+	width: 940px;
+    height: 750px;
     overflow: hidden;
-    background-color: #333;
+    background-color: #2B3A42; /*rgb(52, 47, 80);*/
     background-size: contain;
-    border: solid 4px grey;
+    border: solid 4px darkgrey;
     /* Replace the url with a live-updating image feed from your camera. */
     /*camera-address-USB: url('http://172.22.11.2:1180/stream.mjpg'); */
     /*camera-address-Radio: url('http://10.40.28.2:1180/stream.mjpg');*/
 }
 
 /* Groupboxes */
+.box{
+    background-color: #2B3A42; /*rgb(52, 47, 80);*/
+    margin: 5px;
+    border-radius: 0px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#header {
+    height: 70px;
+}
+
 #auton-groupbox {
     padding: 0;
     position: fixed;
-    top: 120px;
-    left: 10px;
-    width: 100px;
-    height: 120px;
+    top: 75px;
+    left: 0px;
+    width: 220px;
+    height: 130px;
   /*  display: block;
-    margin: 1.0em auto;
-    text-align: center;*/
+    margin: 1.0em auto;*/
+    text-align: center;
 }
 
 #chassis-groupbox {
     padding: 0;
     position: fixed;
-    top: 240px;
-    left: 10px;
-    width: 217px;
+    top: 210px;
+    left: 0px;
+    width: 220px;
     height: 230px;
+}
+
+#vision-groupbox {
+    padding: 0;
+    position: fixed;
+    top: 75px;
+    left: 225px;
+    width: 261px;
+    height: 130px;
 }
 
 #elevator-groupbox {
     padding: 0;
     position: fixed;
-    top: 120px;
-    left: 240px;
-    width: 225px;
+    top: 210px;
+    left: 225px;
+    width: 261px;
     height: 155px;
 }
 
 #carriage-groupbox {
     padding: 0;
     position: fixed;
-    top: 275px;
-    left: 240px;
-    width: 225px;
+    top: 370px;
+    left: 225px;
+    width: 261px;
     height: 190px;
 }
 
@@ -277,9 +291,13 @@ Configure Settings for Specific HTML Objects
     padding: 0;
     position: fixed;
     top: 480px;
-    left:10px;
-    width: 480px;
+    left: 0px;
+    width: 220px;
     height: 250px;
+}
+
+#developer-dashboard {
+    opacity: 100%;
 }
 
 #myBar {
@@ -291,7 +309,7 @@ Configure Settings for Specific HTML Objects
     color: white; 
 }
 #myProgress {
-    width: 100%;
+    width: 90%;
     background-color: #ddd;
 }
 
@@ -410,7 +428,7 @@ Configure Settings for Classes of HTML Objects
 
 .std-label {
     color: white;
-    background: #444;
+    background: transparent;
     border: none;
     font-size: 12px;
     padding: 4px 4px;
