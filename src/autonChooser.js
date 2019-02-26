@@ -101,6 +101,17 @@ function setSideDefault(side) {
     } 
 }
 
+function setAutonDefault(auton) {
+    var autonButtonList = autonChooserBtnContainer.getElementsByClassName("auton-button");
+    for (var i = 0 ; i < autonButtonList.length ; i++) {   
+        if(autonButtonList[i].value == auton){
+            autonButtonList[i].style.backgroundColor = "white";
+            autonButtonList[i].style.color = "purple";
+            autonButtonList[i].style.fontWeight = "bold";
+        }
+    } 
+}
+
 //Delete Current Buttons in Button Container [prevents repeats]
 function clearAutonButtons() {
     var autonButtonList = autonChooserBtnContainer.getElementsByClassName("auton-button");
