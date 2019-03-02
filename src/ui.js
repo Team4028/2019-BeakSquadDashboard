@@ -21,8 +21,11 @@ let ui = {
 	visionDistanceIndicator: document.getElementById('visionDistanceIndicator'),
 		
 	// elevator
-	
-	// carriage
+	elevatorPosition: document.getElementById('elevatorPosition'),
+
+	// bucket
+	gamepiece: document.getElementById('gamepiece'),
+	hatchcenter: document.getElementById('hatch-center'),
 
 	// camera
 	camera: document.getElementById('camera')
@@ -50,7 +53,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Scan Time (2 sec roll avg)', (key,
 // ========================================================================================
 // Load list of prewritten autonomous modes
 NetworkTables.addKeyListener('/SmartDashboard/Auton/options', (key, value) => {
-//function loadTestAutons() {
 	openChooserWindowBtn.disabled = false;
 	openChooserWindowBtn.textContent = '= Click to Open Chooser Window =';
 	
@@ -105,7 +107,7 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/selected', (key, value)
 // ========================================================================================
 // Robot Vision Diagram
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle1InDegrees', (key, value) => {
+NetworkTables.addKeyListener('/limelight/tx', (key, value) => {
 	ui.visionAngle1Indicator.value = value;
 	
     // Calculate visual rotation of arm
@@ -113,22 +115,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle1InDegrees', (key, val
     // Rotate the arm in diagram to match real arm
 	//ui.robotDiagram.robot.style.transform = `rotate(${robotAngle1}deg)`;
 });
-
-/*NetworkTables.addKeyListener('/SmartDashboard/Angle2', (key, value) => {	
-  /*  // Calculate visual rotation of arm
-    var robotAngle2 = value*Math.PI/180;
-	// Rotate the arm in diagram to match real arm
-	var x = 240 - 
-	Math.sqrt((240-ui.robotDiagram.robot.getAttribute('x'))^2 + 
-	(27-ui.robotDiagram.robot.getAttribute('y'))^2)*Math.cos(robotAngle2);
-
-	var y = 27 - 
-	Math.sqrt((240-ui.robotDiagram.robot.getAttribute('x'))^2 + 
-	(27-ui.robotDiagram.robot.getAttribute('y'))^2)*Math.sin(robotAngle2);
-
-	ui.robotDiagram.robot.setAttribute('x', x);
-	ui.robotDiagram.robot.setAttribute('y', y);
-});*/
 
 NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
 	ui.visionDistanceIndicator.value = value + "in";
@@ -147,12 +133,12 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 // Vision
 // =======================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Vision:IsTargetInFOV', (key, value) => {
-    //ui.climberServerOpen.value = value;
-	
 	if (value)	{
 		ui.visionTargetIndicator.style = "background-color:green;";
+		ui.visionAngle1Indicator.style = "background-color:green;";
 	} else {
 		ui.visionTargetIndicator.style = "background-color:red;";
+		ui.visionAngle1Indicator.style = "background-color:red;";
 	}
 });
 
@@ -161,11 +147,41 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 });
 // ========================================================================================
 // Chassis
-// =======================================================================================
+// ========================================================================================
 
 // ========================================================================================
-// Carriage Group Box
+// Elevator
 // ========================================================================================
+NetworkTables.addKeyListener('/SmartDashboard/Elevator: Position', (key, value) => {
+	if (value = "Level 1"){
+		ui.elevatorPosition.style = "fill: green";
+		ui.elevatorPosition.value = "1";
+	}
+	else if (value = "Level 2"){
+		ui.elevatorPosition.style = "fill: yellow";
+		ui.elevatorPosition.value = "2";
+	}
+	else if (value = "Level 3"){
+		ui.elevatorPosition.style = "fill: red";
+		ui.elevatorPosition.value = "3";
+	} else {
+		ui.elevatorPosition.style = "fill: blue";
+		ui.elevatorPosition.value = "F";
+	}
+});
+
+// ========================================================================================
+// Bucket Group Box
+// ========================================================================================
+NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {	
+	if (value) {
+		ui.gamepiece.style = "fill:yellow; stroke: darkgrey;";
+		ui.hatchcenter.style = "visibility:visible;";
+	} else {
+		ui.bucketGamepieceIndicator.style = "fill:orange; stroke:darkgoldenrod;";
+		ui.hatchcenter.style = "visibility:hidden;";
+	}
+});
 
 // ========================================================================================
 // misc 

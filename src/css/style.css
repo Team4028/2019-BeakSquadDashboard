@@ -190,7 +190,7 @@ Configure Settings for Specific HTML Objects
 }
 
 #autonSideChooserBtnContainer {
-    width: 30%;
+    width: 32%;
     height: 22%;
 }
 
@@ -211,6 +211,31 @@ Configure Settings for Specific HTML Objects
     background-color: red;
 }
 
+#bucketGamepieceIndicator {
+    background-color: red;
+    width: 255px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+#gamepiece {
+    fill: orange;
+    stroke: darkgoldenrod;
+    stroke-width: 3px ; 
+}
+
+#hatch-center{
+    fill: #2B3A42;
+    stroke: darkgrey;
+    stroke-width: 3px;
+    visibility: hidden;
+}
+
+#elevatorPosition {
+    font-size: 50px;
+    font-weight: bold;
+}
+
 /*Manage General Element Design*/
 #camera {
     padding: 0;
@@ -220,7 +245,7 @@ Configure Settings for Specific HTML Objects
     /*width: 50vw;
     height: 90vh; */
 	width: 940px;
-    height: 750px;
+    height: 98.5%;
     overflow: hidden;
     background-color: #2B3A42; /*rgb(52, 47, 80);*/
     background-size: contain;
@@ -281,7 +306,7 @@ Configure Settings for Specific HTML Objects
     height: 155px;
 }
 
-#carriage-groupbox {
+#bucket-groupbox {
     padding: 0;
     position: fixed;
     top: 370px;
@@ -432,7 +457,7 @@ Configure Settings for Classes of HTML Objects
 .std-label {
     color: white;
     background: transparent;
-    border: none;
+      border: none;
     font-size: 12px;
     padding: 4px 4px;
     cursor: pointer;
