@@ -192,17 +192,6 @@ NetworkTables.addKeyListener('/SmartDashboard/CurrentCameraAddress', (key, value
 	camera.setAttribute('src', value);
 });
 
-NetworkTables.addKeyListener('/SmartDashboard/Nuts', (key, value) => {
-	var elem = document.getElementById("myBar");   
-	var width = 10;
-	var id = setInterval(frame, 10);
-	function frame() {
-		width = value; 
-		elem.style.width = width + '%'; 
-		elem.innerHTML = width * 1  + '%';
-	}
-});
-
 addEventListener('error',(ev)=>{
     ipc.send('windowError',{mesg:ev.message,file:ev.filename,lineNumber:ev.lineno})
 })

@@ -225,7 +225,7 @@ Configure Settings for Specific HTML Objects
 }
 
 #elevatorPosition {
-    font-size: 50px;
+    font-size: 130px;
     font-weight: bold;
 }
 
@@ -290,6 +290,15 @@ Configure Settings for Specific HTML Objects
     height: 130px;
 }
 
+#climber-groupbox {
+    padding: 0;
+    position: fixed;
+    top: 445px;
+    left: 0px;
+    width:220px;
+    height: 115px;
+}
+
 #elevator-groupbox {
     padding: 0;
     position: fixed;
@@ -308,30 +317,8 @@ Configure Settings for Specific HTML Objects
     height: 190px;
 }
 
-#test-groupbox {
-    padding: 0;
-    position: fixed;
-    top: 480px;
-    left: 0px;
-    width: 220px;
-    height: 250px;
-}
-
 #developer-dashboard {
     opacity: 100%;
-}
-
-#myBar {
-    width: 10%;
-    height: 30px;
-    background-color: #4CAF50;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: 30px; /* To center it vertically */
-    color: white; 
-}
-#myProgress {
-    width: 90%;
-    background-color: #ddd;
 }
 
 #vision-diagram-div {
