@@ -91,7 +91,7 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) 
         addSideButton(value[i]);           
     }
 
-	selectedSide.value = "** Not selected **"
+	selectedSide.value = "** Not selected **"	``
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) => {
@@ -153,20 +153,20 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 // Elevator
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Elevator: Position', (key, value) => {
-	if (value = "Level 1"){
+	if (value == "LEVEL_1"){
 		ui.elevatorPosition.style.fill = "green";
-		ui.elevatorPosition.value = "1";
+		ui.elevatorPosition.textContent = "1";
 	}
-	else if (value = "Level 2"){
+	else if (value == "LEVEL_2"){
 		ui.elevatorPosition.style.fill = "yellow";
-		ui.elevatorPosition.value = "2";
+		ui.elevatorPosition.textContent = "2";
 	}
-	else if (value = "Level 3"){
+	else if (value == "LEVEL_3"){
 		ui.elevatorPosition.style.fill = "red";
-		ui.elevatorPosition.value = "3";
+		ui.elevatorPosition.textContent = "3";
 	} else {
-		ui.elevatorPosition.style.fill = "blue";
-		ui.elevatorPosition.value = "F";
+		ui.elevatorPosition.style.fill = "cornsilk";
+		ui.elevatorPosition.textContent = "F";
 	}
 });
 
