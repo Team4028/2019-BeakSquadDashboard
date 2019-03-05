@@ -154,18 +154,18 @@ NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Elevator: Position', (key, value) => {
 	if (value = "Level 1"){
-		ui.elevatorPosition.style = "fill: green";
+		ui.elevatorPosition.style.fill = "green";
 		ui.elevatorPosition.value = "1";
 	}
 	else if (value = "Level 2"){
-		ui.elevatorPosition.style = "fill: yellow";
+		ui.elevatorPosition.style.fill = "yellow";
 		ui.elevatorPosition.value = "2";
 	}
 	else if (value = "Level 3"){
-		ui.elevatorPosition.style = "fill: red";
+		ui.elevatorPosition.style.fill = "red";
 		ui.elevatorPosition.value = "3";
 	} else {
-		ui.elevatorPosition.style = "fill: blue";
+		ui.elevatorPosition.style.fill = "blue";
 		ui.elevatorPosition.value = "F";
 	}
 });
@@ -175,11 +175,13 @@ NetworkTables.addKeyListener('/SmartDashboard/Elevator: Position', (key, value) 
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {	
 	if (value) {
-		ui.gamepiece.style = "fill:yellow; stroke: darkgrey;";
-		ui.hatchcenter.style = "visibility:visible;";
+		ui.gamepiece.style.fill = "yellow";
+		ui.gamepiece.style.stroke = "darkgrey";
+		ui.hatchcenter.style.visibility = "visible";
 	} else {
-		ui.bucketGamepieceIndicator.style = "fill:orange; stroke:darkgoldenrod;";
-		ui.hatchcenter.style = "visibility:hidden;";
+		ui.gamepiece.style.fill = "orange";
+		ui.gamepiece.style.stroke = "darkgoldenrod";
+		ui.hatchcenter.style.visibility = "hidden";
 	}
 });
 

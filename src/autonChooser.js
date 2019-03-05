@@ -32,7 +32,7 @@ function addButton(label) {
 
         // grab the value (selected auton) of the button
         selectedAuton.value = targ.value;
-        NetworkTables.putValue('/SmartDashboard/AUTON MODE: /selected', selectedAuton.value);
+        NetworkTables.putValue('/SmartDashboard/Auton/selected', selectedAuton.value);
     
         //Change Selected Button appearance and reset all others
         var autonButtonList = autonChooserBtnContainer.getElementsByClassName("auton-button");
@@ -73,7 +73,7 @@ function addSideButton(label) {
 
         // grab the value (selected auton) of the button
         selectedSide.value = targ.value;
-        NetworkTables.putValue('/SmartDashboard/AUTON MODE: /selected', selectedAuton.value);
+        NetworkTables.putValue('/SmartDashboard/Side Start/selected', selectedSide.value);
 
         //Change Selected Button appearance and reset all others
         var autonSideButtonList = autonSideChooserBtnContainer.getElementsByClassName("auton-button");
