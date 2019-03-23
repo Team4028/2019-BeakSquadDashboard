@@ -10,7 +10,7 @@ let ui = {
 	// chassis
 
 	//climber
-	climberStatus: documnet.getElementById('climber-status'),
+	climberStatus: document.getElementById('climber-status'),
 	
 	// infeed arm diagram
 	robotDiagram: {
@@ -94,7 +94,7 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) 
         addSideButton(value[i]);           
     }
 
-	selectedSide.value = "** Not selected **"	``
+	selectedSide.value = "** Not selected **"
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) => {
@@ -156,7 +156,7 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:ActualDistance', (key, valu
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Climber:IsRunning', (key, value) => {	
 	if(value){
-		ui.climberStatus.style.visibility = visibile;
+		ui.climberStatus.style.visibility = visible;
 	} else {
 		ui.climberStatus.style.visibility = hidden;
 	}
