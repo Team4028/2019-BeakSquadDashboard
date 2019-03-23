@@ -165,7 +165,9 @@ Configure Settings for Specific HTML Objects
     height: 81px;
     background-color: red;
     border-radius: 4px;
-    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 81px
 }
 
 #robotCodeBuild {
@@ -212,8 +214,8 @@ Configure Settings for Specific HTML Objects
 }
 
 #gamepiece {
-    fill: orange;
-    stroke: darkgoldenrod;
+    fill: darkorange;
+    stroke: orange;
     stroke-width: 3px ; 
 }
 
@@ -229,14 +231,26 @@ Configure Settings for Specific HTML Objects
     font-weight: bold;
 }
 
+#climber-status {
+    top: 20px;
+    left: 10px;
+    width: 205px;
+    height: 70px;
+    background-color: darkolivegreen;
+    visibility: hidden;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 70px;
+    font-size: 20px;
+}
+
 /*Manage General Element Design*/
 #camera {
     padding: 0;
     position: fixed;
     top: 5px;
     left: 495px;
-    /*width: 50vw;
-    height: 90vh; */
 	width: 940px;
     height: 98.5%;
     overflow: hidden;
