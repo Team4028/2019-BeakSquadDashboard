@@ -8,9 +8,6 @@ let ui = {
 	openChooserWindowBtn: document.getElementById('openChooserWindowBtn'),
 	
 	// chassis
-
-	//climber
-	climberStatus: documnet.getElementById('climber-status'),
 	
 	// infeed arm diagram
 	robotDiagram: {
@@ -108,59 +105,49 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/selected', (key, value)
 });
 
 // ========================================================================================
+// Robot Vision Diagram
+// ========================================================================================
+NetworkTables.addKeyListener('/limelight/tx', (key, value) => {
+	ui.visionAngle1Indicator.value = value;
+	
+    // Calculate visual rotation of arm
+    //var robotAngle1 = value;
+    // Rotate the arm in diagram to match real arm
+	//ui.robotDiagram.robot.style.transform = `rotate(${robotAngle1}deg)`;
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
+	ui.visionDistanceIndicator.value = value + "in";
+
+	if (value <= 48)	{
+		ui.visionDistanceIndicator.style = "background-color:green;";
+	} 
+	else if(value <= 120) {
+		ui.visionDistanceIndicator.style = "background-color:yellow;";
+	} else {
+		ui.visionDistanceIndicator.style = "background-color:red;";
+	}
+});
+
+// ========================================================================================
 // Vision
 // =======================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Vision:IsTargetInFOV', (key, value) => {
 	if (value)	{
 		ui.visionTargetIndicator.style = "background-color:green;";
 		ui.visionAngle1Indicator.style = "background-color:green;";
-		ui.visionAngle2Indicator.style = "background-color:green;";
 	} else {
 		ui.visionTargetIndicator.style = "background-color:red;";
 		ui.visionAngle1Indicator.style = "background-color:red;";
-		ui.visionAngle2Indicator.style = "background-color:red;";
 	}
 });
 
-NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle1InDegrees', (key, value) => {	
-	ui.visionAngle1Indicator.textContent = value + "\u00B0";
+NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
+	var robotDistance = value;
 });
-
-NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle2InDegrees', (key, value) => {	
-	ui.visionAngle2Indicator.textContent = value + "\u00B0";
-});
-
-NetworkTables.addKeyListener('/SmartDashboard/Vision:ActualDistance', (key, value) => {	
-	if(value < 100 && value != 0) {
-		ui.visionDistanceIndicator.textContent = Math.round(value) + "in";
-		if (value <= 20) {
-			ui.visionDistanceIndicator.style = "background-color:green;";
-		} 
-		else if(value <= 60) {
-			ui.visionDistanceIndicator.style = "background-color:yellow;";
-		} else {
-			ui.visionDistanceIndicator.style = "background-color:red;";
-		}
-	} else {
-		ui.visionDistanceIndicator.style = "background-color:red;";
-		ui.visionDistanceIndicator.textContent = "NO";
-	}	
-});
-
 // ========================================================================================
 // Chassis
 // ========================================================================================
-
-// ========================================================================================
-// Climber
-// ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/Climber:IsRunning', (key, value) => {	
-	if(value){
-		ui.climberStatus.style.visibility = visibile;
-	} else {
-		ui.climberStatus.style.visibility = hidden;
-	}
-});
 
 // ========================================================================================
 // Elevator
@@ -192,8 +179,8 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {
 		ui.gamepiece.style.stroke = "darkgrey";
 		ui.hatchcenter.style.visibility = "visible";
 	} else {
-		ui.gamepiece.style.fill = "darkorange";
-		ui.gamepiece.style.stroke = "orange";
+		ui.gamepiece.style.fill = "orange";
+		ui.gamepiece.style.stroke = "darkgoldenrod";
 		ui.hatchcenter.style.visibility = "hidden";
 	}
 });
