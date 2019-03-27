@@ -20,7 +20,7 @@ let ui = {
 	//vision
 	visionTargetIndicator: document.getElementById('visionTargetIndicator'),
 	visionAngle1Indicator: document.getElementById('visionAngle1Indicator'),
-	visionAngle2Indicator: document.getElementById('visionAngle2Indicator'),
+	visionConnectionIndicator: document.getElementById('visionConnectionIndicator'),
 	visionDistanceIndicator: document.getElementById('visionDistanceIndicator'),
 		
 	// elevator
@@ -114,11 +114,9 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:IsTargetInFOV', (key, value
 	if (value)	{
 		ui.visionTargetIndicator.style = "background-color:green;";
 		ui.visionAngle1Indicator.style = "background-color:green;";
-		ui.visionAngle2Indicator.style = "background-color:green;";
 	} else {
 		ui.visionTargetIndicator.style = "background-color:red;";
 		ui.visionAngle1Indicator.style = "background-color:red;";
-		ui.visionAngle2Indicator.style = "background-color:red;";
 	}
 });
 
@@ -147,6 +145,15 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:ActualDistance', (key, valu
 	}	
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/Vision:IsPingable', (key, value) => {	
+	if(value) {
+		//ui.visionConnectionIndicator.style = "visibility:hidden;";
+		ui.visionConnectionIndicator.style = "background-color:#2B3A42;";
+	} else {
+		//ui.visionConnectionIndicator.style = "visibility:visible;";
+		ui.visionConnectionIndicator.style = "background-color:red;";
+	}
+});
 // ========================================================================================
 // Chassis
 // ========================================================================================

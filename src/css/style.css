@@ -176,6 +176,11 @@ Configure Settings for Specific HTML Objects
     height: 30px;
 }
 
+#visionConnectionIndicator {
+    height: 98px;
+    line-height: 98px;
+}
+
 /*Setup Auton Chooser */
 #openChooserWindowBtn {
     width: 200px;
