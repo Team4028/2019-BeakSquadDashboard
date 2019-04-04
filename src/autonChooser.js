@@ -42,7 +42,7 @@ function addButton(label) {
         }       
         newButton.style.backgroundColor = "white";
         newButton.style.color = "purple";
-        newButton.style.fontWeight = "bold";   
+        newButton.style.fontWeight = "bold";
     }
 
     //Append the element in page

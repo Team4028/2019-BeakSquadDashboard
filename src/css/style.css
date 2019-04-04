@@ -165,13 +165,20 @@ Configure Settings for Specific HTML Objects
     height: 81px;
     background-color: red;
     border-radius: 4px;
-    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 81px;
 }
 
 #robotCodeBuild {
     width: 200px;	
     overflow: auto;
     height: 30px;
+}
+
+#visionConnectionIndicator {
+    height: 98px;
+    line-height: 98px;
 }
 
 /*Setup Auton Chooser */
@@ -186,7 +193,7 @@ Configure Settings for Specific HTML Objects
 
 #autonChooserBtnContainer {
     width: 60%;
-    height: 40%;
+    height: 50%;
 }
 
 #autonSideChooserBtnContainer {
@@ -212,8 +219,8 @@ Configure Settings for Specific HTML Objects
 }
 
 #gamepiece {
-    fill: orange;
-    stroke: darkgoldenrod;
+    fill: darkorange;
+    stroke: orange;
     stroke-width: 3px ; 
 }
 
@@ -225,8 +232,22 @@ Configure Settings for Specific HTML Objects
 }
 
 #elevatorPosition {
-    font-size: 50px;
+    font-size: 130px;
     font-weight: bold;
+}
+
+#climber-status {
+    top: 20px;
+    left: 10px;
+    width: 205px;
+    height: 70px;
+    background-color: darkolivegreen;
+    visibility: hidden;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 70px;
+    font-size: 20px;
 }
 
 /*Manage General Element Design*/
@@ -235,8 +256,6 @@ Configure Settings for Specific HTML Objects
     position: fixed;
     top: 5px;
     left: 495px;
-    /*width: 50vw;
-    height: 90vh; */
 	width: 940px;
     height: 98.5%;
     overflow: hidden;
@@ -290,6 +309,15 @@ Configure Settings for Specific HTML Objects
     height: 130px;
 }
 
+#climber-groupbox {
+    padding: 0;
+    position: fixed;
+    top: 445px;
+    left: 0px;
+    width:220px;
+    height: 115px;
+}
+
 #elevator-groupbox {
     padding: 0;
     position: fixed;
@@ -308,30 +336,8 @@ Configure Settings for Specific HTML Objects
     height: 190px;
 }
 
-#test-groupbox {
-    padding: 0;
-    position: fixed;
-    top: 480px;
-    left: 0px;
-    width: 220px;
-    height: 250px;
-}
-
 #developer-dashboard {
     opacity: 100%;
-}
-
-#myBar {
-    width: 10%;
-    height: 30px;
-    background-color: #4CAF50;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: 30px; /* To center it vertically */
-    color: white; 
-}
-#myProgress {
-    width: 90%;
-    background-color: #ddd;
 }
 
 #vision-diagram-div {

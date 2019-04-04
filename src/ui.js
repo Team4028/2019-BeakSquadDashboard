@@ -8,6 +8,9 @@ let ui = {
 	openChooserWindowBtn: document.getElementById('openChooserWindowBtn'),
 	
 	// chassis
+
+	//climber
+	climberStatus: document.getElementById('climber-status'),
 	
 	// infeed arm diagram
 	robotDiagram: {
@@ -17,7 +20,7 @@ let ui = {
 	//vision
 	visionTargetIndicator: document.getElementById('visionTargetIndicator'),
 	visionAngle1Indicator: document.getElementById('visionAngle1Indicator'),
-	visionAngle2Indicator: document.getElementById('visionAngle2Indicator'),
+	visionConnectionIndicator: document.getElementById('visionConnectionIndicator'),
 	visionDistanceIndicator: document.getElementById('visionDistanceIndicator'),
 		
 	// elevator
@@ -91,7 +94,7 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/options', (key, value) 
         addSideButton(value[i]);           
     }
 
-	selectedSide.value = "** Not selected **"	``
+	selectedSide.value = "** Not selected **"
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) => {
@@ -102,31 +105,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Side Start/default', (key, value) 
 NetworkTables.addKeyListener('/SmartDashboard/Side Start/selected', (key, value) => {
 	setSideDefault(value.toString());
 	selectedSide.value = value;
-});
-
-// ========================================================================================
-// Robot Vision Diagram
-// ========================================================================================
-NetworkTables.addKeyListener('/limelight/tx', (key, value) => {
-	ui.visionAngle1Indicator.value = value;
-	
-    // Calculate visual rotation of arm
-    //var robotAngle1 = value;
-    // Rotate the arm in diagram to match real arm
-	//ui.robotDiagram.robot.style.transform = `rotate(${robotAngle1}deg)`;
-});
-
-NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
-	ui.visionDistanceIndicator.value = value + "in";
-
-	if (value <= 48)	{
-		ui.visionDistanceIndicator.style = "background-color:green;";
-	} 
-	else if(value <= 120) {
-		ui.visionDistanceIndicator.style = "background-color:yellow;";
-	} else {
-		ui.visionDistanceIndicator.style = "background-color:red;";
-	}
 });
 
 // ========================================================================================
@@ -142,12 +120,54 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:IsTargetInFOV', (key, value
 	}
 });
 
-NetworkTables.addKeyListener('/SmartDashboard/DistanceFromLL', (key, value) => {	
-	var robotDistance = value;
+NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle1InDegrees', (key, value) => {	
+	ui.visionAngle1Indicator.textContent = value + "\u00B0";
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Vision:Angle2InDegrees', (key, value) => {	
+	ui.visionAngle2Indicator.textContent = value + "\u00B0";
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Vision:ActualDistance', (key, value) => {	
+	if(value < 100 && value != 0) {
+		ui.visionDistanceIndicator.textContent = Math.round(value) + "in";
+		if (value <= 20) {
+			ui.visionDistanceIndicator.style = "background-color:green;";
+		} 
+		else if(value <= 60) {
+			ui.visionDistanceIndicator.style = "background-color:yellow;";
+		} else {
+			ui.visionDistanceIndicator.style = "background-color:red;";
+		}
+	} else {
+		ui.visionDistanceIndicator.style = "background-color:red;";
+		ui.visionDistanceIndicator.textContent = "NO";
+	}	
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Vision:IsPingable', (key, value) => {	
+	if(value) {
+		//ui.visionConnectionIndicator.style = "visibility:hidden;";
+		ui.visionConnectionIndicator.style = "background-color:#2B3A42;";
+	} else {
+		//ui.visionConnectionIndicator.style = "visibility:visible;";
+		ui.visionConnectionIndicator.style = "background-color:red;";
+	}
 });
 // ========================================================================================
 // Chassis
 // ========================================================================================
+
+// ========================================================================================
+// Climber
+// ========================================================================================
+NetworkTables.addKeyListener('/SmartDashboard/Climber:IsRunning', (key, value) => {	
+	if(value){
+		ui.climberStatus.style.visibility = visible;
+	} else {
+		ui.climberStatus.style.visibility = hidden;
+	}
+});
 
 // ========================================================================================
 // Elevator
@@ -179,8 +199,8 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {
 		ui.gamepiece.style.stroke = "darkgrey";
 		ui.hatchcenter.style.visibility = "visible";
 	} else {
-		ui.gamepiece.style.fill = "orange";
-		ui.gamepiece.style.stroke = "darkgoldenrod";
+		ui.gamepiece.style.fill = "darkorange";
+		ui.gamepiece.style.stroke = "orange";
 		ui.hatchcenter.style.visibility = "hidden";
 	}
 });
@@ -190,17 +210,6 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/CurrentCameraAddress', (key, value) => {	
 	camera.setAttribute('src', value);
-});
-
-NetworkTables.addKeyListener('/SmartDashboard/Nuts', (key, value) => {
-	var elem = document.getElementById("myBar");   
-	var width = 10;
-	var id = setInterval(frame, 10);
-	function frame() {
-		width = value; 
-		elem.style.width = width + '%'; 
-		elem.innerHTML = width * 1  + '%';
-	}
 });
 
 addEventListener('error',(ev)=>{
