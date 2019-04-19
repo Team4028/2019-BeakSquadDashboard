@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>FRC 4028 Beak Squad Dashboard [version 2019.0]</title>
+    <title>FRC 4028 Beak Squad Dashboard [version 2019.W.01]</title>
     <!--=====================================================-->
     <!-- Verion: | Date: | Description:                      -->
     <!-- 2019.0  | 1/6/19| Initial Commit of Dashboard       -->
@@ -73,28 +73,55 @@
 		</fieldset>
 	</div>
 	
-	<div class="box" id="chassis-groupbox">
-		<legend>Chassis:</legend>
-		<table>
-		</table>
+	<div class="box" id="robot-diagram">
+		<svg id="robot" x="0" y="0" height=fill width=fill style="transform: rotate(0deg); transform-origin: 20% 80%">
+			<svg id="climber" x="72" y="165" height="130" width="53"> <!--SVG needed to translate polygon-->
+				<rect class="robotDiagramShape" x="17" y="10" width="6" height="108"/> <!--Climber Stick-->
+				<rect class="robotDiagramShape" x="2" y="118" width="26" height="9"/> <!--Climber Foot-->
+				<circle class="robotDiagramShape" cx="26" cy="123" r="5"/> <!--Climber Wheel-->
+				<polygon  class="robotDiagramShape" points="0,122 42,122 42,124 51,124 51,127 0,127"/> <!--Climber Ski-->
+			</svg>
+			<svg id="everything-but-climber" x="0" y="0" height=fill width=fill>
+				<rect class="robotDiagramShape" x="81" y="172" width="18" height="108"/> <!--Climber-->
+				<svg id="elevator3" x="118" y="157" width="12" height="130">
+					<rect class="robotDiagramShape" x="2" y="8" width="6" height="99"/> <!--ElevatorTube3-->
+					<rect class="robotDiagramShape" x="2" y="2" width="7" height="5"/> <!--ElevatorTop3-->	
+				</svg>
+				<svg id="elevator2" x="112" y="162" width="18" height="109">
+					<rect id="elevator2" class="robotDiagramShape" x="8" y="7" width="6" height="99"/> <!--ElevatorTube2-->
+					<rect id="elevator2" class="robotDiagramShape" x="2" y="2" width="14" height="5"/> <!--ElevatorTop2-->	
+				</svg>
+				<svg id="elevator1" x="109" y="167" height="282" width="72">
+					<rect class="robotDiagramShape" x="11" y="14" width="6" height="99"/> <!--ElevatorTube1-->
+					<rect class="robotDiagramShape" x="2" y="2" width="17" height="12"/> <!--ElevatorTop1-->
+				</svg>
+				<rect class="robotDiagramShape" x="91" y="166" width="3" height="120" style="transform: rotate(26deg)"/> <!--ElevatorSupport-->	
+				<svg id="carriage" x="103" y="199" height="100" width="100"> <!--SVG needed to translate polygon-->
+					<rect class="robotDiagramShape" x="2" y="64" width="49" height="6"/> <!--HFrame-->
+					<svg id="bucket" x="10" y="0" height="100" width="51">
+						<polygon class="robotDiagramShape" points="20,67 28,94 27,95 26,95 23,95 20,94 16,91 15,88 16,67"/> <!--Lexan-->
+						<polygon class="robotDiagramShape" points="39,62 0,63 0,74 23,74 27,69 30,67 33,66 39,66"/> <!--Bucket-->	
+						<rect class="robotDiagramShape" x="17" y="56" width="24" height="6"/> <!--Bucket Top-->
+						<svg id="beak" x="0" y="0" height="77" width="40">
+							<rect class="robotDiagramShape" x="24" y="0" width="1" height="33"/> <!--Camera Pole-->
+							<rect class="robotDiagramShape" x="22" y="5" width="6" height="6" style="transform: rotate(53deg)"/> <!--Camera-->
+							<rect class="robotDiagramShape" x="27" y="9" width="1" height="4" style="transform: rotate(53deg)"/> <!--CameraLens-->
+							<polygon id="beakTop" class="robotDiagramShape" points="28,42 37,42 34,39 33,38 31,37 30,37 29,38 28,39 28,40"/> <!--Beak Lexan Top-->
+							<rect id="beakSide" class="robotDiagramShape" x="30" y="46" width="9" height="1"/> <!--Beak Lexan Side-->
+							<polygon class="robotDiagramShape" points="24,35 30,35 30,56 18,56 24,45"/> <!--Beak Metal-->
+						</svg>
+					</svg>
+				</svg>
+				<!--Wheels-->
+					<circle class="robotDiagramShape" cx="79" cy="286" r="9"/>	<!--Back-->
+					<circle class="robotDiagramShape" cx="105" cy="286" r="9"/>	<!--Middle-->
+					<circle class="robotDiagramShape" cx="132" cy="286" r="9"/>	<!--Front-->
+				<rect class="robotDiagramShape" x="63" y="280" width="84" height="9"/> <!--Chassis-->	
+			</svg>
+			<rect class="robotDiagramShape" x="0" y="295" width="220" height="1"/> <!--Ground-->
+		</svg>
 	</div>		
-	
-	<!--<div id="robot-diagram-div">-->
-		<!-- Robot diagram, arms moves when encoder values change -->
-		<!-- Elevator diagram, shows current position on elevator-->
-        <!--<svg id="robot-diagram" width="332" height="450">-->
-            <!-- Robot Diagram -->
-			<!--</svg>-->
-	<!--</div>-->
-	<!--<div id="vision-diagram-div">-->
-		<!--<svg id="vision-diagram">-->
-			<!--Trapezoid for Rocket-->
-			<!--<polygon points="210,1 225,27 255,27 270,1" style="fill:blue;stroke:white;stroke-width:5;fill-rule:nonzero;"/>-->
-			<!--Rectangle for Robot-->
-			<!--<rect id="robot" x="225" y="100" width="30" height="30" rx="3" ry="3" style="stroke:white;stroke-width:2;transform-origin: center center"/>-->
-		<!--</svg>-->
-	<!--</div>-->
-	
+		
 	<div class="box" id="vision-groupbox">
 		<table>
 			<colgroup>
@@ -139,15 +166,6 @@
 					<circle id="gamepiece" cx="130" cy="80" r="60"/>
 					<circle id="hatch-center" cx="130" cy="80" r="20"/>
 				</svg>
-			</tr>
-		</table>
-	</div>
-
-	<div class="box" id="climber-groupbox">
-		<legend>Climber:</legend>
-		<table>
-			<tr>
-				<td><div id = "climber-status">Climber is Running</div></td>
 			</tr>
 		</table>
 	</div>

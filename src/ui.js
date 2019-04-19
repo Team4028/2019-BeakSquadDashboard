@@ -10,11 +10,18 @@ let ui = {
 	// chassis
 
 	//climber
-	climberStatus: document.getElementById('climber-status'),
 	
 	// infeed arm diagram
 	robotDiagram: {
 		robot: document.getElementById('robot'),
+		elevatorLevel2: document.getElementById('elevator2'),
+		elevatorLevel3: document.getElementById('elevator3'),
+		carriage: document.getElementById('carriage'),
+		climber: document.getElementById('climber'),
+		bucket: document.getElementById('bucket'),
+		beak: document.getElementById('beak'),
+		beakTop: document.getElementById('beakTop'),
+		beakSide: document.getElementById('beakSide'),
 	},
 
 	//vision
@@ -147,26 +154,27 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:ActualDistance', (key, valu
 
 NetworkTables.addKeyListener('/SmartDashboard/Vision:IsPingable', (key, value) => {	
 	if(value) {
-		//ui.visionConnectionIndicator.style = "visibility:hidden;";
 		ui.visionConnectionIndicator.style = "background-color:#2B3A42;";
 	} else {
-		//ui.visionConnectionIndicator.style = "visibility:visible;";
 		ui.visionConnectionIndicator.style = "background-color:red;";
 	}
 });
+
 // ========================================================================================
-// Chassis
+// Robot Diagram
 // ========================================================================================
+/*NetworkTables.addKeyListener('/SmartDashboard/NavX:Pitch', (key, value) => {	
+	ui.robotDiagram.robot.style.transform = `rotate(${value}deg)`;
+});*/
 
 // ========================================================================================
 // Climber
 // ========================================================================================
-NetworkTables.addKeyListener('/SmartDashboard/Climber:IsRunning', (key, value) => {	
-	if(value){
-		ui.climberStatus.style.visibility = visible;
-	} else {
-		ui.climberStatus.style.visibility = hidden;
-	}
+NetworkTables.addKeyListener('/SmartDashboard/Climber: Position', (key, value) => {	
+	var transformHeight = Math.round(value * (96/288)) //Total travel height of elevator [in] /
+													   //total image travel distance [pixels]
+	//Transform Climber to match actual elevator
+	ui.robotDiagram.climber.setAttribute('y', 162 + transformHeight);
 });
 
 // ========================================================================================
@@ -190,6 +198,14 @@ NetworkTables.addKeyListener('/SmartDashboard/Elevator: Position', (key, value) 
 	}
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/Elevator: CurrentPosition', (key, value) => {
+	//Calculate Relative Transformation Height
+	var transformHeight = Math.round(value * (3/1)); //[pixels]/[in] conversion
+	//Transform Elevator to match actual elevator
+	ui.robotDiagram.elevatorLevel2.setAttribute('y', 162 - transformHeight/3);
+	ui.robotDiagram.elevatorLevel3.setAttribute('y', 157 - 2*transformHeight/3);
+	ui.robotDiagram.carriage.setAttribute('y', 199 - transformHeight);
+});
 // ========================================================================================
 // Bucket Group Box
 // ========================================================================================
@@ -202,6 +218,32 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {
 		ui.gamepiece.style.fill = "darkorange";
 		ui.gamepiece.style.stroke = "orange";
 		ui.hatchcenter.style.visibility = "hidden";
+	}
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBucketOut', (key, value) => {	
+	if (value) {
+		ui.robotDiagram.bucket.setAttribute('x', 28);
+	} else {
+		ui.robotDiagram.bucket.setAttribute('x', 10);
+	}
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBeakOut', (key, value) => {	
+	if (value) {
+		ui.robotDiagram.beak.setAttribute('x', 9);
+	} else {
+		ui.robotDiagram.beak.setAttribute('x', 0);
+	}
+});
+
+NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBeakOpen', (key, value) => {	
+	if (value) {
+		ui.robotDiagram.beakTop.style.transform = `rotate(${-130}deg)`;
+		ui.robotDiagram.beakSide.setAttribute('width', 6);
+	} else {
+		ui.robotDiagram.beakTop.style.transform = `rotate(${0}deg)`;
+		ui.robotDiagram.beakSide.setAttribute('width', 9);
 	}
 });
 

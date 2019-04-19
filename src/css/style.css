@@ -236,20 +236,6 @@ Configure Settings for Specific HTML Objects
     font-weight: bold;
 }
 
-#climber-status {
-    top: 20px;
-    left: 10px;
-    width: 205px;
-    height: 70px;
-    background-color: darkolivegreen;
-    visibility: hidden;
-    border-radius: 4px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 70px;
-    font-size: 20px;
-}
-
 /*Manage General Element Design*/
 #camera {
     padding: 0;
@@ -275,6 +261,11 @@ Configure Settings for Specific HTML Objects
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+.robotDiagramShape {
+    stroke: cornsilk;
+    stroke-width: 2px;
+}
+
 #header {
     height: 70px;
 }
@@ -291,13 +282,13 @@ Configure Settings for Specific HTML Objects
     text-align: center;
 }
 
-#chassis-groupbox {
+#robot-diagram {
     padding: 0;
     position: fixed;
     top: 210px;
     left: 0px;
     width: 220px;
-    height: 230px;
+    height: 350px;
 }
 
 #vision-groupbox {
@@ -307,15 +298,6 @@ Configure Settings for Specific HTML Objects
     left: 225px;
     width: 261px;
     height: 130px;
-}
-
-#climber-groupbox {
-    padding: 0;
-    position: fixed;
-    top: 445px;
-    left: 0px;
-    width:220px;
-    height: 115px;
 }
 
 #elevator-groupbox {
