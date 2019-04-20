@@ -22,6 +22,8 @@ let ui = {
 		beak: document.getElementById('beak'),
 		beakTop: document.getElementById('beakTop'),
 		beakSide: document.getElementById('beakSide'),
+		robotSansClimber: document.getElementById('everything-but-climber'),
+		climbMessage: document.getElementById('climb-message'),
 	},
 
 	//vision
@@ -163,18 +165,28 @@ NetworkTables.addKeyListener('/SmartDashboard/Vision:IsPingable', (key, value) =
 // ========================================================================================
 // Robot Diagram
 // ========================================================================================
-/*NetworkTables.addKeyListener('/SmartDashboard/NavX:Pitch', (key, value) => {	
-	ui.robotDiagram.robot.style.transform = `rotate(${value}deg)`;
-});*/
+NetworkTables.addKeyListener('/SmartDashboard/NavX:Pitch', (key, value) => {
+	if(Math.abs(value) > 20){	
+		ui.robotDiagram.robot.style.transform = `rotate(${value}deg)`;
+	}
+
+	if(Math.abs(value) > 45){
+		ui.robotDiagram.climbMessage.style.visibility = "visible";
+	} else {
+		ui.robotDiagram.climbMessage.style.visibility = "hidden";
+	}
+});
 
 // ========================================================================================
 // Climber
 // ========================================================================================
 NetworkTables.addKeyListener('/SmartDashboard/Climber: Position', (key, value) => {	
-	var transformHeight = Math.round(value * (96/288)) //Total travel height of elevator [in] /
-													   //total image travel distance [pixels]
-	//Transform Climber to match actual elevator
-	ui.robotDiagram.climber.setAttribute('y', 162 + transformHeight);
+	var transformHeight = Math.round(value * (3/1)); //[pixels]/[in] conversion
+	//Transform Robot to match actual Climber
+	if(Math.abs(value) > 3){
+		ui.robotDiagram.robotSansClimber.style.transform = `translateY(${transformHeight}px)`;
+		ui.robotDiagram.robot.setAttribute('transform-origin', "72px 292px");
+	}
 });
 
 // ========================================================================================
@@ -202,9 +214,9 @@ NetworkTables.addKeyListener('/SmartDashboard/Elevator: CurrentPosition', (key, 
 	//Calculate Relative Transformation Height
 	var transformHeight = Math.round(value * (3/1)); //[pixels]/[in] conversion
 	//Transform Elevator to match actual elevator
-	ui.robotDiagram.elevatorLevel2.setAttribute('y', 162 - transformHeight/3);
-	ui.robotDiagram.elevatorLevel3.setAttribute('y', 157 - 2*transformHeight/3);
-	ui.robotDiagram.carriage.setAttribute('y', 199 - transformHeight);
+	ui.robotDiagram.elevatorLevel2.style.transform = `translate(112px , ${162-transformHeight/3}px)`;
+	ui.robotDiagram.elevatorLevel3.style.transform = `translate(118px , ${157-2*transformHeight/3}px)`;
+	ui.robotDiagram.carriage.style.transform = `translate(103px , ${199-transformHeight}px)`;
 });
 // ========================================================================================
 // Bucket Group Box
@@ -214,26 +226,30 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:HasHatch', (key, value) => {
 		ui.gamepiece.style.fill = "yellow";
 		ui.gamepiece.style.stroke = "darkgrey";
 		ui.hatchcenter.style.visibility = "visible";
+		ui.robotDiagram.beakTop.style.fill = "yellow";
+		ui.robotDiagram.beakSide.style.fill = "yellow";
 	} else {
 		ui.gamepiece.style.fill = "darkorange";
 		ui.gamepiece.style.stroke = "orange";
 		ui.hatchcenter.style.visibility = "hidden";
+		ui.robotDiagram.beakTop.style.fill = "purple";
+		ui.robotDiagram.beakSide.style.fill = "purple";
 	}
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBucketOut', (key, value) => {	
 	if (value) {
-		ui.robotDiagram.bucket.setAttribute('x', 28);
+		ui.robotDiagram.bucket.style.transform = `translateX(${28}px)`;
 	} else {
-		ui.robotDiagram.bucket.setAttribute('x', 10);
+		ui.robotDiagram.bucket.style.transform = `translateX(${10}px)`;
 	}
 });
 
 NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBeakOut', (key, value) => {	
 	if (value) {
-		ui.robotDiagram.beak.setAttribute('x', 9);
+		ui.robotDiagram.beak.style.transform = `translateX(${9}px)`;
 	} else {
-		ui.robotDiagram.beak.setAttribute('x', 0);
+		ui.robotDiagram.beak.style.transform = `translateX(${0}px)`;
 	}
 });
 
@@ -241,9 +257,13 @@ NetworkTables.addKeyListener('/SmartDashboard/Cargo:IsBeakOpen', (key, value) =>
 	if (value) {
 		ui.robotDiagram.beakTop.style.transform = `rotate(${-130}deg)`;
 		ui.robotDiagram.beakSide.setAttribute('width', 6);
+		ui.robotDiagram.beakTop.style.fill = "yellow";
+		ui.robotDiagram.beakSide.style.fill = "yellow";
 	} else {
 		ui.robotDiagram.beakTop.style.transform = `rotate(${0}deg)`;
 		ui.robotDiagram.beakSide.setAttribute('width', 9);
+		ui.robotDiagram.beakTop.style.fill = "purple";
+		ui.robotDiagram.beakSide.style.fill = "purple";
 	}
 });
 
